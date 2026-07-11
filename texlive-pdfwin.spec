@@ -1,52 +1,19 @@
-Name:		texlive-pdfwin
-Version:	54074
-Release:	2
-Summary:	TeXLive pdfwin package
+%global tl_name pdfwin
+%global tl_revision 68667
+
+Name:		texlive-%{tl_name}
+Version:	%{tl_revision}
+Release:	1
+Summary:	customizable windows for screen viewing of TeX documents
 Group:		Publishing
-URL:		https://tug.org/texlive
-License:	http://www.tug.org/texlive/LICENSE.TL
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/pdfwin.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/pdfwin.doc.r%{version}.tar.xz
+URL:		https://www.ctan.org/pkg/pdfwin
+License:	LPPL
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/pdfwin.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/pdfwin.doc.r%{tl_revision}.tar.xz
 BuildArch:	noarch
-BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+BuildSystem:	texlive
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-TeXLive pdfwin package.
+Inspired by the pdfscreen package.
 
-%post
-%{_sbindir}/texlive.post
-
-%postun
-if [ $1 -eq 0 ]; then
-	%{_sbindir}/texlive.post
-fi
-
-#-----------------------------------------------------------------------
-%files
-%{_texmfdistdir}/tex/latex/pdfwin/pdfwin.cfg
-%{_texmfdistdir}/tex/latex/pdfwin/pdfwin.sty
-%doc %{_texmfdistdir}/doc/latex/pdfwin/BucResampling.pdf
-%doc %{_texmfdistdir}/doc/latex/pdfwin/BucSystem1.pdf
-%doc %{_texmfdistdir}/doc/latex/pdfwin/BucSystem2.pdf
-%doc %{_texmfdistdir}/doc/latex/pdfwin/BucSystem3.pdf
-%doc %{_texmfdistdir}/doc/latex/pdfwin/BucSystem4.pdf
-%doc %{_texmfdistdir}/doc/latex/pdfwin/BucSystem5.pdf
-%doc %{_texmfdistdir}/doc/latex/pdfwin/BucSystem6.pdf
-%doc %{_texmfdistdir}/doc/latex/pdfwin/Bucuresti2003.tex
-%doc %{_texmfdistdir}/doc/latex/pdfwin/JWGU-Logo.png
-%doc %{_texmfdistdir}/doc/latex/pdfwin/Thumbs.db
-%doc %{_texmfdistdir}/doc/latex/pdfwin/marble.png
-%doc %{_texmfdistdir}/doc/latex/pdfwin/normprot.tex
-%doc %{_texmfdistdir}/doc/latex/pdfwin/shortvec.tex
-
-#-----------------------------------------------------------------------
-%prep
-%autosetup -p1 -c -a1
-
-%build
-
-%install
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -fpar tex doc %{buildroot}%{_texmfdistdir}
